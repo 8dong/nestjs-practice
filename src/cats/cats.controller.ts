@@ -7,9 +7,12 @@ import {
   Patch,
   Delete,
   UseFilters,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { CatsService } from './cats.service';
+import { PositiveIntPipe } from 'src/pipes/positiveInt.pipe';
 
 @Controller('cats')
 @UseFilters(HttpExceptionFilter)
@@ -22,7 +25,7 @@ export class CatsController {
   }
 
   @Get(':id')
-  getOneCat() {
+  getOneCat(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
     return 'one cat';
   }
 
@@ -32,17 +35,17 @@ export class CatsController {
   }
 
   @Put(':id')
-  updateCat() {
+  updateCat(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
     return 'update cat';
   }
 
   @Patch(':id')
-  updatePartialCat() {
+  updatePartialCat(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
     return 'update partial cat';
   }
 
   @Delete(':id')
-  deleteCat() {
+  deleteCat(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
     return 'delete cat';
   }
 }
