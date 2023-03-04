@@ -9,12 +9,15 @@ import {
   UseFilters,
   Param,
   ParseIntPipe,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { CatsService } from './cats.service';
 import { PositiveIntPipe } from 'src/pipes/positiveInt.pipe';
+import { SuccessInterceptor } from 'src/interceptors/success.interceptor';
 
 @Controller('cats')
+@UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
