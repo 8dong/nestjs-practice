@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Put, Patch, Delete } from '@nestjs/common';
+import { HttpExceptionFilter } from './../http-exception.filter';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  UseFilters,
+} from '@nestjs/common';
 
 import { CatsService } from './cats.service';
 
 @Controller('cats')
+@UseFilters(HttpExceptionFilter)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
