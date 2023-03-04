@@ -13,8 +13,8 @@ import {
 } from '@nestjs/common';
 
 import { CatsService } from './cats.service';
-import { PositiveIntPipe } from 'src/pipes/positiveInt.pipe';
-import { SuccessInterceptor } from 'src/interceptors/success.interceptor';
+import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
