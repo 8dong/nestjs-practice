@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { CatEntity } from './cats/cats.entity';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       synchronize: true,
-      entities: [],
+      entities: [CatEntity],
     }),
     CatsModule,
   ],
