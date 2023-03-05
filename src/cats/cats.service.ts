@@ -5,16 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
+import { CatsRepository } from './cats.repository';
+
 @Injectable()
 export class CatsService {
-  constructor(
-    @InjectRepository(CatEntity)
-    private readonly catEntity: Repository<CatEntity>,
-  ) {}
+  constructor(private readonly catsRepository: CatsRepository) {}
 
   async signUp(body: CatRequestDto) {
     const { email, password, name } = body;
-    const isCatExist = await this.catEntity.exist({ where: { email } });
+    const isCatExist = await this.catsRepository.existByEmail(email);
 
     if (isCatExist) {
       throw new UnauthorizedException('Cat already exists');
@@ -22,15 +21,14 @@ export class CatsService {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    this.catEntity.save({
+    await this.catsRepository.create(body);
+
+    const result = await this.catsRepository.create({
       email,
       password: hashedPassword,
       name,
     });
 
-    return {
-      email,
-      name,
-    };
+    return result;
   }
 }
