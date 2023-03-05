@@ -22,12 +22,15 @@ export class CatsService {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const cat = this.catEntity.save({
+    this.catEntity.save({
       email,
       password: hashedPassword,
       name,
     });
 
-    return cat;
+    return {
+      email,
+      name,
+    };
   }
 }
